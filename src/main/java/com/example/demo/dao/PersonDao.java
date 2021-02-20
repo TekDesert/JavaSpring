@@ -4,27 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
 import com.example.demo.model.Person;
 
-public interface PersonDao {
-	
-	int insertPerson(UUID id, Person person);
-	
-	default int insertPerson(Person person) {
-		
-		UUID id = UUID.randomUUID();
-		return insertPerson(id, person);
-		
-	}
-	
-	List<Person> selectAllPeople();
+public interface PersonDao extends JpaRepository<Person, Integer> {
 	
 	
-	Optional<Person> selectPersonById(UUID id);
-	
-	int deletePersonById(UUID id);
-	
-	int updatePersonById(UUID id, Person person);
-	
+	List<Person> findByName(String name);
 	
 }

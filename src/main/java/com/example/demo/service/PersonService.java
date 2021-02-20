@@ -18,28 +18,37 @@ public class PersonService {
 	private final PersonDao personDao;
 	
 	@Autowired
-	public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+	public PersonService(PersonDao personDao) {
 		this.personDao = personDao; 
 	}
 	
-	public int addPerson(Person person) {
-		return personDao.insertPerson(person);
+	public Person addPerson(Person person) {
+		return personDao.save(person);
 	}
 	
 	public List<Person> getAllPeople(){
-		return personDao.selectAllPeople();
+		return personDao.findAll();
 	}
 	
-	public Optional<Person> getPersonById(UUID id){
-		return personDao.selectPersonById(id);
+	public Optional<Person> getPersonById(int id){
+		return personDao.findById(id);
 	}
 	
-	public int deletePerson(UUID id) {
-		return personDao.deletePersonById(id);
+	public void deletePerson(int id) {
+		
+		personDao.deleteById(id);
+		
 	}
 	
-	public int updatePerson(UUID id, Person person) {
-		return personDao.updatePersonById(id, person);
+	public Person updatePerson(Person person) {
+		return personDao.save(person);
 	}
+	
+	public List<Person> getPersonByName(String name){
+		
+		return personDao.findByName(name);
+		
+	}
+	
 	
 }
